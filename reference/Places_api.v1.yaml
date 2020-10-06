@@ -2,7 +2,8 @@ openapi: 3.0.0
 info:
   title: Places API
   version: '1.0'
-  description: The Places API offers real-time access to Foursquare’s global database of rich venue data and user content to power your location-based experiences in your app or website.
+  description: |
+    The Places API offers real-time access to Foursquare’s global database of rich venue data and user content to power your location-based experiences in your app or website.
   contact:
     name: Fousquare
     url: 'https://developer.foursquare.com/docs'
@@ -13,7 +14,8 @@ paths:
   /venues/search:
     get:
       summary: Venue Search
-      tags: []
+      tags:
+        - venues
       operationId: get-venues-search
       description: 'Returns a list of venues near the current location. '
       parameters:
@@ -58,6 +60,25 @@ paths:
           in: query
           name: categoryId
           description: 'Categories to limit the results to. To view the list of categories, see <a href="https://developer.foursquare.com/docs/build-with-foursquare/categories/">Venue Categories</a>'
+        - schema:
+            type: string
+          in: query
+          name: client_id
+          description: Client id. Found in your Foursquare Developer Console
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: client_secret
+          description: Client secret. Found in your Foursquare Developer Console
+          required: true
+        - schema:
+            type: string
+            example: '20200805'
+          in: query
+          name: v
+          required: true
+          description: 'A date that represents the "version" of the API for which you expect from Foursquare. Format: YYYYMMDD<br/>For more details, see <a href="https://developer.foursquare.com/docs/places-api/versioning/">Versioning</a>'
       responses:
         '200':
           description: OK
@@ -254,3 +275,5 @@ components:
       name: client_secret
       type: apiKey
       in: query
+tags:
+  - name: venues
