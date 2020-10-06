@@ -1,0 +1,328 @@
+openapi: 3.0.0
+info:
+  title: Places API
+  version: '1.0'
+  description: |-
+    The Places API offers real-time access to Foursquare’s global database of rich venue data and user content to power your location-based experiences in your app or website.
+
+    See the following resources for more information.
+
+    <a href="https://developer.foursquare.com/docs/places-api/getting-started/">Getting started</a><br/>
+    <a href="https://developer.foursquare.com/docs/places-api/authentication/">Authentication</a><br/>
+    <a href="https://developer.foursquare.com/docs/places-api/errors/">Error codes</a><br/>
+  contact:
+    name: Fousquare
+    url: 'https://developer.foursquare.com/docs'
+servers:
+  - url: 'https://api.foursquare.com/v2'
+    description: Production
+security: 
+  
+  - clientid: []
+  - clientsecret: []
+paths:
+  /venues/search:
+    get:
+      summary: Venue Search
+      tags:
+        - venues
+      operationId: get-venues-search
+      description: 'Returns a list of venues near the current location. '
+      parameters:
+        - schema:
+            type: number
+            example: '4074224,-73.99386'
+          in: query
+          name: ll
+          description: |-
+            The latitude and longitude coordinates of the user's location. <br/>Format: **latitude(num),longitude(num)**
+            <br/>**required** unless `near` is provided
+        - schema:
+            type: string
+            example: Chicago
+          in: query
+          name: near
+          description: |-
+            The city near to which the venues are to be returned. 
+            <br/>**required** unless `ll` is provided.
+        - schema:
+            type: integer
+            maximum: 100000
+            example: 250
+          in: query
+          name: radius
+          description: 'Limits the venues within this radius of specified location. Units are in **meters**.<br/>**Note**: Only valid for requests that use `categoryID` or `query`'
+        - schema:
+            type: string
+            example: pizza
+          in: query
+          name: query
+          description: A keyword for searching venues.
+        - schema:
+            type: integer
+            example: 15
+            maximum: 50
+          in: query
+          name: limit
+          description: Number of results to return
+        - schema:
+            type: string
+          in: query
+          name: categoryId
+          description: 'Categories to limit the results to. To view the list of categories, see <a href="https://developer.foursquare.com/docs/build-with-foursquare/categories/">Venue Categories</a>'
+        - schema:
+            type: string
+          in: query
+          name: client_id
+          description: Client id. Found in your Foursquare Developer Console
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: client_secret
+          description: Client secret. Found in your Foursquare Developer Console
+          required: true
+        - schema:
+            type: string
+            example: '20200805'
+          in: query
+          name: v
+          required: true
+          description: 'A date that represents the "version" of the API for which you expect from Foursquare. Format: YYYYMMDD<br/>For more details, see <a href="https://developer.foursquare.com/docs/places-api/versioning/">Versioning</a>'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    description: Meta data about the request
+                    properties:
+                      code:
+                        type: integer
+                        description: Response code
+                      requestId:
+                        type: string
+                        description: Request ID (auto-generated for each request)
+                        example: 5ac51d7e6a607143d811cecb
+                  response:
+                    type: object
+                    description: Top level object
+                    properties:
+                      venues:
+                        type: array
+                        description: list of venues and their details
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: ID of the venue
+                              example: 5642aef9498e51025cf4a7a5
+                            name:
+                              type: string
+                              description: Name of the venue
+                              example: Pizza hut
+                            location:
+                              type: object
+                              description: Location of the venue
+                              properties:
+                                address:
+                                  type: string
+                                  description: Address of the venue
+                                  example: 180 Orchard St
+                                crossStreet:
+                                  type: string
+                                  description: Name of the crossstreet
+                                  example: btwn Houston & Stanton St
+                                lat:
+                                  type: number
+                                  description: Latitude coordinate of the venue
+                                  example: 40.72173744277209
+                                lng:
+                                  type: number
+                                  description: Longitude coordinate of the venue
+                                  example: -73.98800687282996
+                                labeledLatLngs:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      label:
+                                        type: string
+                                        description: Label of the coordinates
+                                        example: display
+                                      lat:
+                                        type: number
+                                        description: Latitude coordinate of the venue
+                                        example: 40.72173744277209
+                                      lng:
+                                        type: number
+                                        description: Longitude coordinate of the venue
+                                        example: -73.98800687282996
+                                distance:
+                                  type: integer
+                                  description: Distance of the venue from the location specified. Unit is **meters**.
+                                  example: 8
+                                postalCode:
+                                  type: string
+                                  description: Postal code of the venue
+                                  example: '10002'
+                                cc:
+                                  type: string
+                                  description: 'Country code. To view the list of country codes, see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">this Wikepedia page<a/>'
+                                  example: US
+                                city:
+                                  type: string
+                                  description: City where the venue is located
+                                  example: New York
+                                state:
+                                  type: string
+                                  description: State where the venue is located
+                                  example: NY
+                                country:
+                                  type: string
+                                  description: Country where the venue is located
+                                formattedAddress:
+                                  type: array
+                                  description: Complete address of the venue
+                                  items:
+                                    type: string
+                            categories:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: ID of the category corresponding to the venue
+                                    example: 'https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2'
+                                  name:
+                                    type: string
+                                    description: Name of the category
+                                    example: Fast food
+                                  pluralName:
+                                    type: string
+                                    description: Plural name of the category
+                                    example: Fast foods
+                                  shortName:
+                                    type: string
+                                    description: Short name of the category
+                                    example: Fast food
+                                  icon:
+                                    type: object
+                                    description: Icon of the category
+                                    properties:
+                                      prefix:
+                                        type: string
+                                        description: URL of the icon
+                                        example: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
+                                      suffix:
+                                        type: string
+                                        description: Extension of the icon
+                                        example: .png
+                                  primary:
+                                    type: boolean
+                                    description: True if the category mentioned is the primary category
+                            venuePage:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: Unique ID of the venue
+                                  example: '150747252'
+              examples:
+                Example:
+                  value:
+                    meta:
+                      code: 200
+                      requestId: 5ac51d7e6a607143d811cecb
+                    response:
+                      venues:
+                        - id: 5642aef9498e51025cf4a7a5
+                          name: Mr. Purple
+                          location:
+                            address: 180 Orchard St
+                            crossStreet: btwn Houston & Stanton St
+                            lat: 40.72173744277209
+                            lng: -73.98800687282996
+                            labeledLatLngs:
+                              - label: display
+                                lat: 40.72173744277209
+                                lng: -73.98800687282996
+                            distance: 8
+                            postalCode: '10002'
+                            cc: US
+                            city: New York
+                            state: NY
+                            country: United States
+                            formattedAddress:
+                              - 180 Orchard St (btwn Houston & Stanton St)
+                              - 'New York, NY 10002'
+                              - United States
+                          categories:
+                            - id: 4bf58dd8d48988d1d5941735
+                              name: Hotel Bar
+                              pluralName: Hotel Bars
+                              shortName: Hotel Bar
+                              icon:
+                                prefix: 'https://ss3.4sqi.net/img/categories_v2/travel/hotel_bar_'
+                                suffix: .png
+                              primary: true
+                          venuePage:
+                            id: '150747252'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    description: Meta data about the request
+                    properties:
+                      code:
+                        type: number
+                        description: Error code
+                        example: 400
+                      errorType:
+                        type: string
+                        description: Type of error
+                        example: param error
+                      errorDetail:
+                        type: string
+                        description: Details of the error
+                        example: Must provide parameter ll or userll or near
+                      requestId:
+                        type: string
+                        description: Unique ID corresonding to the request
+                        example: 5f7c6fe80b052b3087064067
+                  response:
+                    type: object
+              examples:
+                Example:
+                  value:
+                    meta:
+                      code: 400
+                      errorType: param_error
+                      errorDetail: Must provide parameter ll or userll or near
+                      requestId: 5f7c6fe80b052b3087064067
+                    response: {}
+components:
+  schemas: {}
+  securitySchemes:
+    clientid:
+      name: client_id
+      type: apiKey
+      in: query
+    clientsecret:
+      name: client_secret
+      type: apiKey
+      in: query
+tags:
+  - name: venues
