@@ -68,34 +68,53 @@ paths:
                 properties:
                   meta:
                     type: object
+                    description: Meta data about the request
                     properties:
                       code:
                         type: integer
+                        description: Response code
                       requestId:
                         type: string
+                        description: Request ID (auto-generated for each request)
+                        example: 5ac51d7e6a607143d811cecb
                   response:
                     type: object
+                    description: Top level object
                     properties:
                       venues:
                         type: array
+                        description: list of venues and their details
                         items:
                           type: object
                           properties:
                             id:
                               type: string
+                              description: ID of the venue
+                              example: 5642aef9498e51025cf4a7a5
                             name:
                               type: string
+                              description: Name of the venue
+                              example: Pizza hut
                             location:
                               type: object
+                              description: Location of the venue
                               properties:
                                 address:
                                   type: string
+                                  description: Address of the venue
+                                  example: 180 Orchard St
                                 crossStreet:
                                   type: string
+                                  description: Name of the crossstreet
+                                  example: btwn Houston & Stanton St
                                 lat:
                                   type: number
+                                  description: Latitude coordinate of the venue
+                                  example: 40.72173744277209
                                 lng:
                                   type: number
+                                  description: Longitude coordinate of the venue
+                                  example: -73.98800687282996
                                 labeledLatLngs:
                                   type: array
                                   items:
@@ -103,24 +122,42 @@ paths:
                                     properties:
                                       label:
                                         type: string
+                                        description: Label of the coordinates
+                                        example: display
                                       lat:
                                         type: number
+                                        description: Latitude coordinate of the venue
+                                        example: 40.72173744277209
                                       lng:
                                         type: number
+                                        description: Longitude coordinate of the venue
+                                        example: -73.98800687282996
                                 distance:
                                   type: integer
+                                  description: Distance of the venue from the location specified. Unit is **meters**.
+                                  example: 8
                                 postalCode:
                                   type: string
+                                  description: Postal code of the venue
+                                  example: '10002'
                                 cc:
                                   type: string
+                                  description: 'Country code. To view the list of country codes, see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">this Wikepedia page<a/>'
+                                  example: US
                                 city:
                                   type: string
+                                  description: City where the venue is located
+                                  example: New York
                                 state:
                                   type: string
+                                  description: State where the venue is located
+                                  example: NY
                                 country:
                                   type: string
+                                  description: Country where the venue is located
                                 formattedAddress:
                                   type: array
+                                  description: Complete address of the venue
                                   items:
                                     type: string
                             categories:
@@ -130,64 +167,82 @@ paths:
                                 properties:
                                   id:
                                     type: string
+                                    description: ID of the category corresponding to the venue
+                                    example: 'https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2'
                                   name:
                                     type: string
+                                    description: Name of the category
+                                    example: Fast food
                                   pluralName:
                                     type: string
+                                    description: Plural name of the category
+                                    example: Fast foods
                                   shortName:
                                     type: string
+                                    description: Short name of the category
+                                    example: Fast food
                                   icon:
                                     type: object
+                                    description: Icon of the category
                                     properties:
                                       prefix:
                                         type: string
+                                        description: URL of the icon
+                                        example: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
                                       suffix:
                                         type: string
+                                        description: Extension of the icon
+                                        example: .png
                                   primary:
                                     type: boolean
+                                    description: True if the category mentioned is the primary category
                             venuePage:
                               type: object
                               properties:
                                 id:
                                   type: string
+                                  description: Unique ID of the venue
+                                  example: '150747252'
               examples:
                 Example:
                   value:
                     meta:
-                      code: 0
-                      requestId: string
+                      code: 200
+                      requestId: 5ac51d7e6a607143d811cecb
                     response:
                       venues:
-                        - id: string
-                          name: string
+                        - id: 5642aef9498e51025cf4a7a5
+                          name: Mr. Purple
                           location:
-                            address: string
-                            crossStreet: string
-                            lat: 0
-                            lng: 0
+                            address: 180 Orchard St
+                            crossStreet: btwn Houston & Stanton St
+                            lat: 40.72173744277209
+                            lng: -73.98800687282996
                             labeledLatLngs:
-                              - label: string
-                                lat: 0
-                                lng: 0
-                            distance: 0
-                            postalCode: string
-                            cc: string
-                            city: string
-                            state: string
-                            country: string
+                              - label: display
+                                lat: 40.72173744277209
+                                lng: -73.98800687282996
+                            distance: 8
+                            postalCode: '10002'
+                            cc: US
+                            city: New York
+                            state: NY
+                            country: United States
                             formattedAddress:
-                              - string
+                              - 180 Orchard St (btwn Houston & Stanton St)
+                              - 'New York, NY 10002'
+                              - United States
                           categories:
-                            - id: string
-                              name: string
-                              pluralName: string
-                              shortName: string
+                            - id: 4bf58dd8d48988d1d5941735
+                              name: Hotel Bar
+                              pluralName: Hotel Bars
+                              shortName: Hotel Bar
                               icon:
-                                prefix: string
-                                suffix: string
+                                prefix: 'https://ss3.4sqi.net/img/categories_v2/travel/hotel_bar_'
+                                suffix: .png
                               primary: true
                           venuePage:
-                            id: string
+                            id: '150747252'
 components:
   schemas: {}
   securitySchemes:
