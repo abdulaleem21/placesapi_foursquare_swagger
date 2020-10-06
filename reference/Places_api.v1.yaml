@@ -16,6 +16,9 @@ info:
 servers:
   - url: 'https://api.foursquare.com/v2'
     description: Production
+security:
+  - clientid: []
+  - clientsecret: []
 paths:
   /venues/search:
     get:
@@ -66,18 +69,6 @@ paths:
           in: query
           name: categoryId
           description: 'Categories to limit the results to. To view the list of categories, see <a href="https://developer.foursquare.com/docs/build-with-foursquare/categories/">Venue Categories</a>'
-        - schema:
-            type: string
-          in: query
-          name: client_id
-          description: Client id. Found in your Foursquare Developer Console
-          required: true
-        - schema:
-            type: string
-          in: query
-          name: client_secret
-          description: Client secret. Found in your Foursquare Developer Console
-          required: true
         - schema:
             type: string
             example: '20200805'
