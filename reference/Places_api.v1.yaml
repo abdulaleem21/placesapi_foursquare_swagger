@@ -14,7 +14,6 @@ paths:
     get:
       summary: Venue Search
       tags: []
-      responses: {}
       operationId: get-venues-search
       description: 'Returns a list of venues near the current location. '
       parameters:
@@ -24,7 +23,7 @@ paths:
           in: query
           name: ll
           description: |-
-            The latitude and longitude coordinates of the user's location. Format: **latitude(num),longitude(num)**
+            The latitude and longitude coordinates of the user's location. <br/>Format: **latitude(num),longitude(num)**
             <br/>**required** unless `near` is provided
         - schema:
             type: string
@@ -59,9 +58,136 @@ paths:
           in: query
           name: categoryId
           description: 'Categories to limit the results to. To view the list of categories, see <a href="https://developer.foursquare.com/docs/build-with-foursquare/categories/">Venue Categories</a>'
-        - schema:
-            type: string
-          in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      requestId:
+                        type: string
+                  response:
+                    type: object
+                    properties:
+                      venues:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            location:
+                              type: object
+                              properties:
+                                address:
+                                  type: string
+                                crossStreet:
+                                  type: string
+                                lat:
+                                  type: number
+                                lng:
+                                  type: number
+                                labeledLatLngs:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      label:
+                                        type: string
+                                      lat:
+                                        type: number
+                                      lng:
+                                        type: number
+                                distance:
+                                  type: integer
+                                postalCode:
+                                  type: string
+                                cc:
+                                  type: string
+                                city:
+                                  type: string
+                                state:
+                                  type: string
+                                country:
+                                  type: string
+                                formattedAddress:
+                                  type: array
+                                  items:
+                                    type: string
+                            categories:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                                  pluralName:
+                                    type: string
+                                  shortName:
+                                    type: string
+                                  icon:
+                                    type: object
+                                    properties:
+                                      prefix:
+                                        type: string
+                                      suffix:
+                                        type: string
+                                  primary:
+                                    type: boolean
+                            venuePage:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+              examples:
+                Example:
+                  value:
+                    meta:
+                      code: 0
+                      requestId: string
+                    response:
+                      venues:
+                        - id: string
+                          name: string
+                          location:
+                            address: string
+                            crossStreet: string
+                            lat: 0
+                            lng: 0
+                            labeledLatLngs:
+                              - label: string
+                                lat: 0
+                                lng: 0
+                            distance: 0
+                            postalCode: string
+                            cc: string
+                            city: string
+                            state: string
+                            country: string
+                            formattedAddress:
+                              - string
+                          categories:
+                            - id: string
+                              name: string
+                              pluralName: string
+                              shortName: string
+                              icon:
+                                prefix: string
+                                suffix: string
+                              primary: true
+                          venuePage:
+                            id: string
 components:
   schemas: {}
   securitySchemes:
