@@ -2,8 +2,14 @@ openapi: 3.0.0
 info:
   title: Places API
   version: '1.0'
-  description: |
+  description: |-
     The Places API offers real-time access to Foursquare’s global database of rich venue data and user content to power your location-based experiences in your app or website.
+
+    See the following resources for more information.
+
+    <a href="https://developer.foursquare.com/docs/places-api/getting-started/">Getting started</a><br/>
+    <a href="https://developer.foursquare.com/docs/places-api/authentication/">Authentication</a><br/>
+    <a href="https://developer.foursquare.com/docs/places-api/errors/">Error codes</a><br/>
   contact:
     name: Fousquare
     url: 'https://developer.foursquare.com/docs'
