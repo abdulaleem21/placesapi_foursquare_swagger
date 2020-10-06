@@ -9,7 +9,59 @@ info:
 servers:
   - url: 'https://api.foursquare.com/v2'
     description: Production
-paths: {}
+paths:
+  /venues/search:
+    get:
+      summary: Venue Search
+      tags: []
+      responses: {}
+      operationId: get-venues-search
+      description: 'Returns a list of venues near the current location. '
+      parameters:
+        - schema:
+            type: number
+            example: '4074224,-73.99386'
+          in: query
+          name: ll
+          description: |-
+            The latitude and longitude coordinates of the user's location. Format: **latitude(num),longitude(num)**
+            <br/>**required** unless `near` is provided
+        - schema:
+            type: string
+            example: Chicago
+          in: query
+          name: near
+          description: |-
+            The city near to which the venues are to be returned. 
+            <br/>**required** unless `ll` is provided.
+        - schema:
+            type: integer
+            maximum: 100000
+            example: 250
+          in: query
+          name: radius
+          description: 'Limits the venues within this radius of specified location. Units are in **meters**.<br/>**Note**: Only valid for requests that use `categoryID` or `query`'
+        - schema:
+            type: string
+            example: pizza
+          in: query
+          name: query
+          description: A keyword for searching venues.
+        - schema:
+            type: integer
+            example: 15
+            maximum: 50
+          in: query
+          name: limit
+          description: Number of results to return
+        - schema:
+            type: string
+          in: query
+          name: categoryId
+          description: 'Categories to limit the results to. To view the list of categories, see <a href="https://developer.foursquare.com/docs/build-with-foursquare/categories/">Venue Categories</a>'
+        - schema:
+            type: string
+          in: query
 components:
   schemas: {}
   securitySchemes:
