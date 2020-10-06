@@ -1,1 +1,1 @@
-# apidocs_foursquare_sample
+# PlacesAPI_sample
