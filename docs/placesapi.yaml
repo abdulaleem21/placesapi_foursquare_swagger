@@ -214,13 +214,13 @@ paths:
                                   primary:
                                     type: boolean
                                     description: True if the category mentioned is the primary category
-                            venuePage:
-                              type: object
-                              properties:
-                                id:
-                                  type: string
-                                  description: Unique ID of the venue
-                                  example: '150747252'
+                            referralId:
+                              type: string
+                              description: 'A referral ID provided by a referral program. '
+                              example: v-1602042997
+                            hasPerk:
+                              type: boolean
+                              description: 'True if the venue has any perquisites, and false if not.'
               examples:
                 Example:
                   value:
@@ -259,8 +259,8 @@ paths:
                                 prefix: 'https://ss3.4sqi.net/img/categories_v2/travel/hotel_bar_'
                                 suffix: .png
                               primary: true
-                          venuePage:
-                            id: '150747252'
+                          referralId: v-1602042997
+                          hasPerk: false
         '400':
           description: Bad Request
           content:
@@ -483,13 +483,13 @@ paths:
                                   primary:
                                     type: boolean
                                     description: True if the category mentioned is the primary category
-                            venuePage:
-                              type: object
-                              properties:
-                                id:
-                                  type: string
-                                  description: Unique ID of the venue
-                                  example: '150747252'
+                            referralId:
+                              type: string
+                              description: 'A referral ID provided by a referral program. '
+                              example: v-1602042997
+                            hasPerk:
+                              type: boolean
+                              description: 'True if the venue has any perquisites, and false if not.'
               examples:
                 Example:
                   value:
@@ -528,8 +528,8 @@ paths:
                                 prefix: 'https://ss3.4sqi.net/img/categories_v2/travel/hotel_bar_'
                                 suffix: .png
                               primary: true
-                          venuePage:
-                            id: '150747252'
+                          referralId: v-1602042997
+                          hasPerk: false
         '400':
           description: Bad Request
           content:
