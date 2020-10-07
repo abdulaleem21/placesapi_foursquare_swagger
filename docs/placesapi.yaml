@@ -22,7 +22,7 @@ security:
 paths:
   /venues/search:
     get:
-      summary: Venue Search
+      summary: Search Venues
       tags:
         - venues
       operationId: get-venues-search
@@ -302,7 +302,7 @@ paths:
                     response: {}
   /venues/trending:
     get:
-      summary: Trending Venues
+      summary: Search trending venues
       tags:
         - venues
       operationId: get-venues-trending
