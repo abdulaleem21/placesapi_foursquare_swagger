@@ -569,6 +569,173 @@ paths:
                       errorDetail: Must provide parameter ll or userll or near
                       requestId: 5f7c6fe80b052b3087064067
                     response: {}
+  /venues/categories:
+    get:
+      summary: Get categories list
+      tags:
+        - venues
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    description: Meta data about the request
+                    properties:
+                      code:
+                        type: integer
+                        description: Response code
+                      requestId:
+                        type: string
+                        description: Request ID (auto-generated for each request)
+                        example: 5ac51d7e6a607143d811cecb
+                  response:
+                    type: object
+                    description: Top level object
+                    properties:
+                      categories:
+                        type: array
+                        description: Main category
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: ID of the category corresponding to the venue
+                              example: 56aa371be4b08b9a8d5734de
+                            name:
+                              type: string
+                              description: Name of the category
+                              example: Name of the category
+                            pluralName:
+                              type: string
+                              description: Plural name of the category
+                              example: Fast foods
+                            shortName:
+                              type: string
+                              description: Short name of the category
+                              example: Fast food
+                            icon:
+                              type: object
+                              properties:
+                                prefix:
+                                  type: string
+                                  description: URL of the icon
+                                  example: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
+                                suffix:
+                                  type: string
+                                  description: Extension of the icon
+                                  example: .png
+                            categories:
+                              type: array
+                              description: Sub category
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    description: ID of the category corresponding to the venue
+                                    example: 56aa371be4b08b9a8d5734de
+                                  name:
+                                    type: string
+                                    description: Name of the category
+                                    example: Name of the category
+                                  pluralName:
+                                    type: string
+                                    description: Plural name of the category
+                                    example: Pizza joints
+                                  shortName:
+                                    type: string
+                                    description: Short name of the category
+                                    example: Pizza joint
+                                  icon:
+                                    type: object
+                                    properties:
+                                      prefix:
+                                        type: string
+                                        description: URL of the icon
+                                        example: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
+                                      suffix:
+                                        type: string
+                                        description: Extension of the icon
+                                        example: .png
+              examples:
+                example-1:
+                  value:
+                    meta:
+                      code: 0
+                      requestId: 5ac51d7e6a607143d811cecb
+                    response:
+                      categories:
+                        - id: 56aa371be4b08b9a8d5734de
+                          name: Name of the category
+                          pluralName: Fast foods
+                          shortName: Fast food
+                          icon:
+                            prefix: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
+                            suffix: .png
+                          categories:
+                            - id: 56aa371be4b08b9a8d5734de
+                              name: Name of the category
+                              pluralName: Pizza joints
+                              shortName: Pizza joint
+                              icon:
+                                prefix: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
+                                suffix: .png
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    description: Meta data about the request
+                    properties:
+                      code:
+                        type: number
+                        description: Error code
+                        example: 400
+                      errorType:
+                        type: string
+                        description: Type of error
+                        example: param error
+                      errorDetail:
+                        type: string
+                        description: Details of the error
+                        example: Must provide parameter ll or userll or near
+                      requestId:
+                        type: string
+                        description: Unique ID corresonding to the request
+                        example: 5f7c6fe80b052b3087064067
+                  response:
+                    type: object
+              examples:
+                Example:
+                  value:
+                    meta:
+                      code: 400
+                      errorType: param_error
+                      errorDetail: Must provide parameter ll or userll or near
+                      requestId: 5f7c6fe80b052b3087064067
+                    response: {}
+      operationId: get-venues-categories
+      description: Returns the hierarchial list of categories apllied to venues.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: v
+          description: |-
+            A date that represents the "version" of the API for which you expect from Foursquare. Format: YYYYMMDD
+            <br/>For more details, see <a href="https://developer.foursquare.com/docs/places-api/versioning/">Versioning</a>
+          required: true
 components:
   schemas: {}
   securitySchemes:
