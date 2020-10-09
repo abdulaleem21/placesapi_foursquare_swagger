@@ -736,6 +736,211 @@ paths:
             A date that represents the "version" of the API for which you expect from Foursquare. Format: YYYYMMDD
             <br/>For more details, see <a href="https://developer.foursquare.com/docs/places-api/versioning/">Versioning</a>
           required: true
+  '/venues/{VENUE_ID}/similar':
+    parameters:
+      - schema:
+          type: string
+        name: VENUE_ID
+        in: path
+        required: true
+        description: 'Unique ID of a venue. Call the `/venues/search` endpoint to get a venue ID. '
+    get:
+      summary: Search similar venues
+      tags:
+        - venues
+      operationId: get-venues-similar
+      description: 'Returns a list of venues similar the venue specified venue. '
+      parameters:
+        - schema:
+            type: string
+            example: '20200508'
+          in: query
+          description: 'A date that represents the "version" of the API for which you expect from Foursquare. Format: YYYYMMDD<br/>For more details, see <a href="https://developer.foursquare.com/docs/places-api/versioning/">Versioning</a>'
+          name: v
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    description: Meta data about the request
+                    properties:
+                      code:
+                        type: number
+                        description: Response code
+                      requestId:
+                        type: string
+                        description: Request ID (auto-generated for each request)
+                        example: 5ac51d7e6a607143d811cecb
+                  response:
+                    type: object
+                    description: Top level object
+                    properties:
+                      similarVenues:
+                        type: object
+                        description: list of similar venues and their details
+                        properties:
+                          count:
+                            type: number
+                            description: Number of similar venues in the list
+                            example: 4
+                          items:
+                            type: array
+                            uniqueItems: false
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  description: ID of the venue
+                                  example: 5642aef9498e51025cf4a7a5
+                                name:
+                                  type: string
+                                  description: Name of the venue
+                                  example: Pizza hut
+                                location:
+                                  type: object
+                                  description: Location of the venue
+                                  properties:
+                                    address:
+                                      type: string
+                                      description: Address of the venue
+                                      example: 180 Orchard St
+                                    crossStreet:
+                                      type: string
+                                      description: Name of the crossstreet
+                                      example: btwn Houston & Stanton St
+                                    lat:
+                                      type: number
+                                      description: Latitude coordinate of the venue
+                                      example: 40.72173744277209
+                                    lng:
+                                      type: number
+                                      description: Longitude coordinate of the venue
+                                      example: -73.98800687282996
+                                    labeledLatLngs:
+                                      type: array
+                                      uniqueItems: false
+                                      items:
+                                        type: object
+                                        properties:
+                                          label:
+                                            type: string
+                                            description: Label of the coordinates
+                                            example: display
+                                          lat:
+                                            type: number
+                                            description: Latitude coordinate of the venue
+                                            example: 40.72173744277209
+                                          lng:
+                                            type: number
+                                            description: Longitude coordinate of the venue
+                                            example: -73.98800687282996
+                                    postalCode:
+                                      type: string
+                                      description: Postal code of the venue
+                                      example: '10002'
+                                    cc:
+                                      type: string
+                                      description: 'Country code. To view the list of country codes, see this <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">Wikepedia page</a>'
+                                      example: US
+                                    city:
+                                      type: string
+                                      description: City where the venue is located
+                                      example: New York
+                                    state:
+                                      type: string
+                                      description: State where the venue is located
+                                      example: NY
+                                    country:
+                                      type: string
+                                      description: Country where the venue is located
+                                    formattedAddress:
+                                      type: array
+                                      description: Complete address of the venue
+                                      items:
+                                        type: string
+                                categories:
+                                  type: array
+                                  uniqueItems: false
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                        description: ID of the category corresponding to the venue
+                                        example: 4bf58dd8d48988d129951735
+                                      name:
+                                        type: string
+                                        description: Name of the category
+                                        example: Fast food
+                                      pluralName:
+                                        type: string
+                                        description: Plural name of the category
+                                        example: Fast foods
+                                      shortName:
+                                        type: string
+                                        description: Short name of the category
+                                        example: Fast food
+                                      icon:
+                                        type: object
+                                        properties:
+                                          prefix:
+                                            type: string
+                                            description: URL of the icon
+                                            example: 'https://ss3.4sqi.net/img/categories_v2/travel/fastfood'
+                                          suffix:
+                                            type: string
+                                            description: Extension of the icon
+                                            example: .png
+                                      primary:
+                                        type: boolean
+                                        description: True if the category mentioned is the primary category
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    description: Meta data about the request
+                    properties:
+                      code:
+                        type: number
+                        description: Error code
+                        example: 400
+                      errorType:
+                        type: string
+                        description: Type of error
+                        example: param error
+                      errorDetail:
+                        type: string
+                        description: Details of the error
+                        example: Must provide parameter ll or userll or near
+                      requestId:
+                        type: string
+                        description: Unique ID corresonding to the request
+                        example: 5f7c6fe80b052b3087064067
+                  response:
+                    type: object
+              examples:
+                Example:
+                  value:
+                    meta:
+                      code: 400
+                      errorType: param_error
+                      errorDetail: Value 4b44920df964a520def625e is invalid for venue id
+                      requestId: 5f7c6fe80b052b3087064067
+                    response: {}
 components:
   schemas: {}
   securitySchemes:
